@@ -1,0 +1,22 @@
+spring:  
+  application:  
+    name: TestSqlCombine  
+  profiles:  
+    active: dev  # 開発時はdev、本番時はprodなどに変更  
+
+  sql:  
+    init:  
+      mode: always  
+      schema-locations: classpath:schema.sql  
+      data-locations: classpath:data.sql  
+
+  jpa:  
+    defer-datasource-initialization: true  
+    database-platform: org.hibernate.dialect.MySQL8Dialect  
+    hibernate:  
+      ddl-auto: update
+
+  datasource:  
+    url: jdbc:mysql://db:3306/appdb  
+    username: ${SPRING_DATASOURCE_USERNAME} 
+    password: ${SPRING_DATASOURCE_PASSWORD}

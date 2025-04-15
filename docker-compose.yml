@@ -1,0 +1,60 @@
+version: '3.8'
+services:
+  app:  # ← 追加必須  
+    build: .  # Dockerfileを使用する場合  
+    image: your_app_image  # 既存イメージを使用する場合  
+    ports:  
+      - "8080:8080"  
+    environment:  
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/${MYSQL_DATABASE}  
+      SPRING_DATASOURCE_USERNAME: root  
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}  
+    depends_on:  
+      - db  
+    networks:  
+      - app-network  
+  db:
+    image: mysql:8.0
+    container_name: mysql_container
+    stdin_open: true  # 入力ストリーム有効化  
+    tty: true         # 疑似端末の割り当て  
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_HOST: '%'  # リモート接続許可[3]  
+      TZ: Asia/Tokyo       # タイムゾーン設定[7]
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./config/mysql/conf.d:/etc/mysql/conf.d  # 新規追加（設定ファイル用） 
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+    restart: unless-stopped  # 追加  
+    mem_limit: 512m  # 追加  
+    command:  # ← ここに追加（インデントレベルに注意）
+      - --bind-address=0.0.0.0
+  phpmyadmin:  # ← ここに追記
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db  # MySQLサービス名を指定
+    networks:
+      - app-network  # 既存のネットワーク名
+    depends_on:
+      - db  # MySQLコンテナ起動後に起動
+volumes:
+  mysql_data:
+
+networks:
+  app-network:
+    name:  custom-app-network
+    driver: bridge
+    ipam:
+      config:  
+      - subnet: 172.22.0.0/24  # 172.22.0.1を含む範囲
+        gateway: 172.22.0.1
