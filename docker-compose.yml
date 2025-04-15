@@ -4,7 +4,7 @@ services:
     build: .  # Dockerfileを使用する場合  
     image: your_app_image  # 既存イメージを使用する場合  
     ports:  
-      - "8080:8080"  
+      - "8081:8080"  
     environment:  
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/${MYSQL_DATABASE}  
       SPRING_DATASOURCE_USERNAME: root  
