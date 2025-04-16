@@ -1,0 +1,31 @@
+@charset "UTF-8";
+/* テーブル全体の設定 */
+table {
+    width: 100%;
+    border-collapse: collapse; /* セルの線を重ねる */
+    table-layout: fixed; /* 列幅を均等にする */
+}
+
+/* ヘッダー行のスタイル */
+thead th {
+    background-color: #f0f0f0; /* ヘッダー背景色 */
+    font-weight: bold; /* 太字 */
+    border: 1px solid #ccc; /* 枠線 */
+    text-align: center; /* 中央揃え */
+}
+
+/* データ行のスタイル */
+tbody td {
+    border: 1px solid #ccc; /* 枠線 */
+    padding: 8px; /* 内側余白 */
+    text-align: right; /* 数字を右寄せ */
+}
+
+/* 偶数行と奇数行の色分け */
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* 偶数行の背景色 */
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #ffffff; /* 奇数行の背景色 */
+}

@@ -20,3 +20,6 @@ spring:
     url: jdbc:mysql://localhost:3306/sql_combine_test  
     username: ${SPRING_DATASOURCE_USERNAME} 
     password: ${SPRING_DATASOURCE_PASSWORD}
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html

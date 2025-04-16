@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,4 +33,8 @@ public class ItemService {
             .orElseThrow(() -> new RuntimeException("商品が見つかりません"));  
         item.setPrice(price);  
     }  
+ // findAll メソッドを追加
+    public List<Item> findAll() {
+        return itemRepository.findAll(); // ItemRepository を通じてアイテムの一覧を取得
+    }
 }  
