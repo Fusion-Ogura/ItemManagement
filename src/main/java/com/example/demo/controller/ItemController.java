@@ -51,4 +51,10 @@ public class ItemController {
         model.addAttribute("keyword", keyword); // 入力値を再表示用に渡す
         return "item/list";
     }
+    @GetMapping("/items/{id}")
+    public String showDetail(@PathVariable Long id, Model model) {
+        Item item = itemService.findById(id);
+        model.addAttribute("item", item);
+        return "item/detail";
+    }
 }  

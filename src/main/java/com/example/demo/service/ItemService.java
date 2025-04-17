@@ -46,5 +46,9 @@ public class ItemService {
             return itemRepository.findByNameContaining(keyword, pageable);
         }
     }
+    public Item findById(Long id) {
+        return itemRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("指定された商品が見つかりません"));
+    }
     
 }  
