@@ -7,6 +7,13 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+	<div class="search-form">
+	<form th:action="@{/items}" method="get">
+		<label for="keyword">商品名検索：</label>
+	    <input type="text" name="keyword" th:value="${keyword}" placeholder="商品名で検索"/>
+	    <button type="submit">検索</button>
+	</form>
+	</div>
     <h1>アイテム一覧</h1>
     <table>
         <thead>
@@ -29,11 +36,11 @@
 		<ul class="pagination">
 			<!-- 「最初へ」リンク -->
 			<li th:if="${page.number > 2}">
-                <a th:href="@{/items(page=0)}">≪ 最初</a>
+                <a th:href="@{/items(page=0, keyword=${keyword})}">≪ 最初</a>
 	        </li>
 			<!-- 「前へ」リンク -->
 	        <li th:if="${page.hasPrevious()}">
-	            <a th:href="@{/items(page=${page.number - 1})}">&lt; 前へ</a>
+	            <a th:href="@{/items(page=${page.number - 1}, keyword=${keyword})}">&lt; 前へ</a>
 	        </li>
 			<!-- 先頭に「…」を表示 -->
 			<li th:if="${page.number > 2}">
@@ -44,7 +51,7 @@
 			             T(java.lang.Math).max(0, page.number - 2), 
 			             T(java.lang.Math).min(page.totalPages - 1, page.number + 2))}"
 			    th:classappend="${i} == ${page.number} ? 'active'">
-		        <a th:href="@{/items(page=${i})}" 
+		        <a th:href="@{/items(page=${i}, keyword=${keyword})}" 
 			       th:text="${i + 1}">1</a>
 			</li>
 			<!-- 末尾に「…」を表示 -->
@@ -53,11 +60,11 @@
 	        </li>
 			<!-- 「次へ」リンク -->
 	        <li th:if="${page.hasNext()}">
-	            <a th:href="@{/items(page=${page.number + 1})}">次へ &gt;</a>
+	            <a th:href="@{/items(page=${page.number + 1}, keyword=${keyword})}">次へ &gt;</a>
 	        </li>
 			<!-- 「最後へ」リンク -->
 			<li th:if="${page.number < page.totalPages - 3}">
-	            <a th:href="@{/items(page=${page.totalPages - 1})}">最後 ≫</a>
+	            <a th:href="@{/items(page=${page.totalPages - 1}, keyword=${keyword})}">最後 ≫</a>
 	        </li>
 			
 		</ul>

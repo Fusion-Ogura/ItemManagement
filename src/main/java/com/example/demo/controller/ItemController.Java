@@ -43,9 +43,12 @@ public class ItemController {
         return "redirect:/items";  
     }  
     @GetMapping("/items")  
-    public String listItems(Model model, @PageableDefault(size = 10) Pageable pageable) {
-        Page<Item> page = itemService.findAll(pageable);
+    public String listItems( @RequestParam(name = "keyword", required = false) String keyword,
+            @PageableDefault(size = 10) Pageable pageable,
+            Model model) {
+    	Page<Item> page = itemService.searchItems(keyword, pageable); // ←Serviceに渡す
         model.addAttribute("page", page);
+        model.addAttribute("keyword", keyword); // 入力値を再表示用に渡す
         return "item/list";
     }
 }  

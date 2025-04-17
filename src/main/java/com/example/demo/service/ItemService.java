@@ -38,4 +38,13 @@ public class ItemService {
     public Page<Item> findAll(Pageable pageable) {
         return itemRepository.findAll(pageable);
     }
+    
+    public Page<Item> searchItems(String keyword, Pageable pageable) {
+        if (keyword == null || keyword.isEmpty()) {
+            return itemRepository.findAll(pageable);
+        } else {
+            return itemRepository.findByNameContaining(keyword, pageable);
+        }
+    }
+    
 }  
