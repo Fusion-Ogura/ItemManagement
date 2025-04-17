@@ -1,44 +1,28 @@
 <!-- templates/item/list.html -->  
-<!DOCTYPE html>  
-<html xmlns:th="http://www.thymeleaf.org">  
-<head>  
-    <title>商品管理</title>  
-    <link rel="stylesheet" href="/css/bootstrap.min.css">  
-</head>  
-<body>  
-    <div class="container mt-4">  
-        <h1>商品一覧</h1>  
-        <table class="table table-bordered">  
-            <thead>  
-                <tr>  
-                    <th>商品名</th>  
-                    <th>価格</th>  
-                    <th>在庫数</th>  
-                    <th>操作</th>  
-                </tr>  
-            </thead>  
-            <tbody>  
-                <tr th:each="item : ${items}">  
-                    <!-- 商品情報表示 -->  
-                    <td th:text="${item.name}"></td>  
-                    <td th:text="${item.price}"></td>  
-                    <td th:text="${item.stock.quantity}"></td>  
-
-                    <!-- 更新フォーム -->  
-                    <td>  
-                        <form th:action="@{/items/{id}/price(id=${item.id})}" method="post" class="d-inline">  
-                            <input type="number" name="price" step="0.01" class="form-control-sm" required>  
-                            <button type="submit" class="btn btn-sm btn-warning">価格更新</button>  
-                        </form>  
-
-                        <form th:action="@{/items/{id}/stock(id=${item.id})}" method="post" class="d-inline ms-2">  
-                            <input type="number" name="quantity" class="form-control-sm" min="0" required>  
-                            <button type="submit" class="btn btn-sm btn-info">在庫更新</button>  
-                        </form>  
-                    </td>  
-                </tr>  
-            </tbody>  
-        </table>  
-    </div>  
-</body>  
-</html>  
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>アイテム一覧</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>アイテム一覧</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>商品名</th>
+                <th>価格</th>
+                <th>在庫数</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.name}"></td>
+                <td th:text="${#numbers.formatInteger(item.price, 1, 'COMMA')}"></td>
+                <td th:text="${item.stock.quantity}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
