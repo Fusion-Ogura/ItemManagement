@@ -91,3 +91,17 @@ tbody tr:nth-child(odd) {
 .pagination li span {
     color: #888;
 }
+
+/*詳細ページの画面幅*/
+.detail-table {
+    width: auto;
+    border-collapse: collapse;
+}
+
+.detail-table th,
+.detail-table td {
+    padding: 8px 16px;
+    text-align: left;
+}
+
+
