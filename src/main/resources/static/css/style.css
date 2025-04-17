@@ -29,3 +29,36 @@ tbody tr:nth-child(even) {
 tbody tr:nth-child(odd) {
     background-color: #ffffff; /* 奇数行の背景色 */
 }
+
+.pagination-wrapper {
+    text-align: right;
+    margin-top: 1rem;
+}
+
+.pagination {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination li {
+    display: inline;
+    margin: 0 5px;
+}
+
+.pagination li a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.pagination li.active a {
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.pagination li span {
+    color: #888;
+}

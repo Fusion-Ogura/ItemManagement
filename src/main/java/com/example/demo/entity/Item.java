@@ -9,9 +9,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
-import lombok.Data;  
+import lombok.Getter;
+import lombok.Setter;  
 
-@Data  
+@Getter
+@Setter
 @Entity  
 public class Item {  
     @Id  
@@ -35,5 +37,9 @@ public class Item {
             stock.setItem(this);  
         }  
         this.stock = stock;  
-    }  
+    }
+    @Override
+    public String toString() {
+        return "Item{id=" + id + ", name=" + name + ", price=" + price + "}";
+    }
 }  

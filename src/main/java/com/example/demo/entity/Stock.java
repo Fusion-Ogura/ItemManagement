@@ -7,9 +7,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
-import lombok.Data;  
+import lombok.Data;
+import lombok.ToString;  
 
 @Data  
+@ToString(exclude = "item") 
 @Entity  
 public class Stock {  
     @Id  

@@ -17,12 +17,50 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="item : ${items}">
+            <tr th:each="item : ${page.content}">
                 <td th:text="${item.name}"></td>
                 <td th:text="${#numbers.formatInteger(item.price, 1, 'COMMA')}"></td>
                 <td th:text="${item.stock.quantity}"></td>
             </tr>
         </tbody>
     </table>
+	<!-- ページネーション -->
+	<div class="pagination-wrapper">
+		<ul class="pagination">
+			<!-- 「最初へ」リンク -->
+			<li th:if="${page.number > 2}">
+                <a th:href="@{/items(page=0)}">≪ 最初</a>
+	        </li>
+			<!-- 「前へ」リンク -->
+	        <li th:if="${page.hasPrevious()}">
+	            <a th:href="@{/items(page=${page.number - 1})}">&lt; 前へ</a>
+	        </li>
+			<!-- 先頭に「…」を表示 -->
+			<li th:if="${page.number > 2}">
+			    <span>…</span>
+	        </li>
+			<!-- ページ番号リンク -->
+			<li th:each="i : ${#numbers.sequence(
+			             T(java.lang.Math).max(0, page.number - 2), 
+			             T(java.lang.Math).min(page.totalPages - 1, page.number + 2))}"
+			    th:classappend="${i} == ${page.number} ? 'active'">
+		        <a th:href="@{/items(page=${i})}" 
+			       th:text="${i + 1}">1</a>
+			</li>
+			<!-- 末尾に「…」を表示 -->
+			<li th:if="${page.number < page.totalPages - 3}">
+	            <span>…</span>
+	        </li>
+			<!-- 「次へ」リンク -->
+	        <li th:if="${page.hasNext()}">
+	            <a th:href="@{/items(page=${page.number + 1})}">次へ &gt;</a>
+	        </li>
+			<!-- 「最後へ」リンク -->
+			<li th:if="${page.number < page.totalPages - 3}">
+	            <a th:href="@{/items(page=${page.totalPages - 1})}">最後 ≫</a>
+	        </li>
+			
+		</ul>
+	</div>
 </body>
 </html>

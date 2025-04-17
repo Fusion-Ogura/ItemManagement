@@ -1,9 +1,10 @@
 package com.example.demo.service;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +35,7 @@ public class ItemService {
         item.setPrice(price);  
     }  
  // findAll メソッドを追加
-    public List<Item> findAll() {
-        return itemRepository.findAll(); // ItemRepository を通じてアイテムの一覧を取得
+    public Page<Item> findAll(Pageable pageable) {
+        return itemRepository.findAll(pageable);
     }
 }  
