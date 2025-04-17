@@ -29,6 +29,7 @@
 
     <div style="margin-top: 20px;">
         <a th:href="@{/items}">← 一覧に戻る</a>
+		<a th:href="@{/items/{id}/edit(id=${item.id})}" style="margin-left: 20px;">編集</a>
     </div>
 </body>
 </html>

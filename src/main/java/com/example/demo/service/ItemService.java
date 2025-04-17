@@ -34,6 +34,13 @@ public class ItemService {
             .orElseThrow(() -> new RuntimeException("商品が見つかりません"));  
         item.setPrice(price);  
     }  
+    @Transactional
+    public void updateItem(Long itemId, BigDecimal price, Integer quantity) {
+        Item item = itemRepository.findById(itemId)
+            .orElseThrow(() -> new RuntimeException("商品が見つかりません"));
+        item.setPrice(price);
+        item.getStock().setQuantity(quantity);
+    }
  // findAll メソッドを追加
     public Page<Item> findAll(Pageable pageable) {
         return itemRepository.findAll(pageable);

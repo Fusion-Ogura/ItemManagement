@@ -8,8 +8,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -56,5 +58,22 @@ public class ItemController {
         Item item = itemService.findById(id);
         model.addAttribute("item", item);
         return "item/detail";
+    }
+ // 編集画面の表示
+    @GetMapping("/items/{id}/edit")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Item item = itemService.findById(id); // DBから商品取得
+        model.addAttribute("item", item);     // 画面に渡す
+        return "item/edit";                   // 編集画面へ
+    }
+    
+ // 商品の更新（RESTっぽく PUT 使用）
+    @PutMapping("/items/{id}")
+    public String updateItem(
+            @PathVariable Long id,
+            @ModelAttribute("item") Item formItem) {
+
+        itemService.updateItem(id, formItem.getPrice(), formItem.getStock().getQuantity());
+        return "redirect:/items/" + id; // 詳細画面へリダイレクト
     }
 }  
