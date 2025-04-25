@@ -3,8 +3,6 @@ import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,9 +36,5 @@ public class ItemController {
         redirectAttributes.addFlashAttribute("message", "在庫数を更新しました");  
         return "redirect:/items";  
     }  
-    @GetMapping("/items")  
-    public String list(Model model) {  
-        model.addAttribute("items", itemService.findAll());  
-        return "item/list";  // templates/item/list.html を参照  
-    }  
+
 }  
