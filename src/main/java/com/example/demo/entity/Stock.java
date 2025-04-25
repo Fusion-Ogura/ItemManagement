@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;  
 
 @Data  
@@ -20,7 +22,8 @@ public class Stock {
     private Integer quantity;  
 
     @OneToOne(optional = false)  
-    @JoinColumn(name = "item_id", nullable = false, unique = true)  
+    @JoinColumn(name = "item_id", nullable = false, unique = true)
+    @JsonBackReference
     private Item item;  
 
     @Override  
