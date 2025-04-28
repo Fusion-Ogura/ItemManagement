@@ -26,7 +26,6 @@ public class ItemService {
 
     // 商品一覧取得（検索とページング対応）
     public Page<Item> getItems(String keyword, Pageable pageable, String[] sort) {
-        String sortField = sort[0];
         String sortOrder = sort[1];
 
         	// quantityに基づく昇順・降順の切り替え
